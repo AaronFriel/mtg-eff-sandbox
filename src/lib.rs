@@ -216,11 +216,7 @@ mod test {
       // has replacement effects applied!)
       let draw_result = int.apply(draw_cards(1));
 
-      assert_json_snapshot!(draw_result.unwrap(), @r###"
-      [
-        "Drew Mox Tombstone"
-      ]
-      "###);
+      assert_json_snapshot!(draw_result.unwrap()[0], @r###""Drew Mox Tombstone""###);
 
       // "Play" a card (we're skipping many steps) but, more or less, adding a
       // replacement effect
@@ -236,11 +232,7 @@ mod test {
       // result:
       let draw_result = int.apply(draw_cards(1));
 
-      assert_json_snapshot!(draw_result.unwrap(), @r###"
-      [
-        "Discarded Mox Tombstone"
-      ]
-      "###);
+      assert_json_snapshot!(draw_result.unwrap()[0], @r###""Discarded Mox Tombstone""###);
 
       // Gain some life:
 
