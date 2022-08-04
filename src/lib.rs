@@ -334,5 +334,47 @@ mod test {
     let final_snapshot = serde_json::to_value(&interpreter).unwrap();
 
     assert_eq!(initial_snapshot, final_snapshot);
+    assert_yaml_snapshot!(interpreter, @r###"
+    ---
+    game:
+      life: 25
+      library: []
+      hand:
+        - Mox Awesome
+      graveyard:
+        - Mox Tombstone
+      replacement_effects:
+        DRAW:
+          - RandomDiscardReplacement: ~
+    effects:
+      - result: 42
+        children:
+          - result:
+              Ok: Drew Mox Awesome
+            children: []
+      - result: 69
+        children:
+          - result:
+              Ok:
+                - Drew Mox Tombstone
+            children:
+              - result:
+                  Ok: Drew Mox Tombstone
+                children: []
+          - result: ~
+            children: []
+      - result: ~
+        children:
+          - result:
+              Ok:
+                - Discarded Mox Tombstone
+            children:
+              - result:
+                  Ok: Discarded Mox Tombstone
+                children: []
+          - result: Added 5 life
+            children: []
+    position: 3
+    "###);
   }
 }
